@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProgrammeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgrammeRepository::class)]
@@ -30,6 +32,14 @@ class Programme
 
     #[ORM\Column]
     private ?bool $halteres = null;
+
+    #[ORM\ManyToMany(targetEntity: Seance::class, mappedBy: 'programmes')]
+    private Collection $seances;
+
+    public function __construct()
+    {
+        $this->seances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -92,6 +102,33 @@ class Programme
     public function setHalteres(bool $halteres): static
     {
         $this->halteres = $halteres;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Seance>
+     */
+    public function getSeances(): Collection
+    {
+        return $this->seances;
+    }
+
+    public function addSeance(Seance $seance): static
+    {
+        if (!$this->seances->contains($seance)) {
+            $this->seances->add($seance);
+            $seance->addProgramme($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeance(Seance $seance): static
+    {
+        if ($this->seances->removeElement($seance)) {
+            $seance->removeProgramme($this);
+        }
 
         return $this;
     }
