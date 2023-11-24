@@ -21,9 +21,13 @@ class Categorie
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Seance::class)]
     private Collection $seances;
 
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: CategorieExercice::class)]
+    private Collection $categorieExercices;
+
     public function __construct()
     {
         $this->seances = new ArrayCollection();
+        $this->categorieExercices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +71,36 @@ class Categorie
             // set the owning side to null (unless already changed)
             if ($seance->getCategorie() === $this) {
                 $seance->setCategorie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategorieExercice>
+     */
+    public function getCategorieExercices(): Collection
+    {
+        return $this->categorieExercices;
+    }
+
+    public function addCategorieExercice(CategorieExercice $categorieExercice): static
+    {
+        if (!$this->categorieExercices->contains($categorieExercice)) {
+            $this->categorieExercices->add($categorieExercice);
+            $categorieExercice->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorieExercice(CategorieExercice $categorieExercice): static
+    {
+        if ($this->categorieExercices->removeElement($categorieExercice)) {
+            // set the owning side to null (unless already changed)
+            if ($categorieExercice->getCategorie() === $this) {
+                $categorieExercice->setCategorie(null);
             }
         }
 

@@ -33,12 +33,12 @@ class Programme
     #[ORM\Column]
     private ?bool $halteres = null;
 
-    #[ORM\ManyToMany(targetEntity: Seance::class, mappedBy: 'programmes')]
-    private Collection $seances;
+    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: OrdreSeance::class)]
+    private Collection $ordreSeances;
 
     public function __construct()
     {
-        $this->seances = new ArrayCollection();
+        $this->ordreSeances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,27 +107,30 @@ class Programme
     }
 
     /**
-     * @return Collection<int, Seance>
+     * @return Collection<int, OrdreSeance>
      */
-    public function getSeances(): Collection
+    public function getOrdreSeances(): Collection
     {
-        return $this->seances;
+        return $this->ordreSeances;
     }
 
-    public function addSeance(Seance $seance): static
+    public function addOrdreSeance(OrdreSeance $ordreSeance): static
     {
-        if (!$this->seances->contains($seance)) {
-            $this->seances->add($seance);
-            $seance->addProgramme($this);
+        if (!$this->ordreSeances->contains($ordreSeance)) {
+            $this->ordreSeances->add($ordreSeance);
+            $ordreSeance->setProgramme($this);
         }
 
         return $this;
     }
 
-    public function removeSeance(Seance $seance): static
+    public function removeOrdreSeance(OrdreSeance $ordreSeance): static
     {
-        if ($this->seances->removeElement($seance)) {
-            $seance->removeProgramme($this);
+        if ($this->ordreSeances->removeElement($ordreSeance)) {
+            // set the owning side to null (unless already changed)
+            if ($ordreSeance->getProgramme() === $this) {
+                $ordreSeance->setProgramme(null);
+            }
         }
 
         return $this;

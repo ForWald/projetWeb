@@ -30,16 +30,16 @@ class Exercice
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $videoSiHaltere = null;
 
-    #[ORM\ManyToMany(targetEntity: Niveau::class, inversedBy: 'exercices')]
-    private Collection $niveau;
+    #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: OrdreExercice::class)]
+    private Collection $ordreExercices;
 
-    #[ORM\ManyToMany(targetEntity: Seance::class, inversedBy: 'exercices')]
-    private Collection $seances;
+    #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: CategorieExercice::class)]
+    private Collection $categorieExercices;
 
     public function __construct()
     {
-        $this->niveau = new ArrayCollection();
-        $this->seances = new ArrayCollection();
+        $this->ordreExercices = new ArrayCollection();
+        $this->categorieExercices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,49 +108,61 @@ class Exercice
     }
 
     /**
-     * @return Collection<int, Niveau>
+     * @return Collection<int, OrdreExercice>
      */
-    public function getNiveau(): Collection
+    public function getOrdreExercices(): Collection
     {
-        return $this->niveau;
+        return $this->ordreExercices;
     }
 
-    public function addNiveau(Niveau $niveau): static
+    public function addOrdreExercice(OrdreExercice $ordreExercice): static
     {
-        if (!$this->niveau->contains($niveau)) {
-            $this->niveau->add($niveau);
+        if (!$this->ordreExercices->contains($ordreExercice)) {
+            $this->ordreExercices->add($ordreExercice);
+            $ordreExercice->setExercice($this);
         }
 
         return $this;
     }
 
-    public function removeNiveau(Niveau $niveau): static
+    public function removeOrdreExercice(OrdreExercice $ordreExercice): static
     {
-        $this->niveau->removeElement($niveau);
+        if ($this->ordreExercices->removeElement($ordreExercice)) {
+            // set the owning side to null (unless already changed)
+            if ($ordreExercice->getExercice() === $this) {
+                $ordreExercice->setExercice(null);
+            }
+        }
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Seance>
+     * @return Collection<int, CategorieExercice>
      */
-    public function getSeances(): Collection
+    public function getCategorieExercices(): Collection
     {
-        return $this->seances;
+        return $this->categorieExercices;
     }
 
-    public function addSeance(Seance $seance): static
+    public function addCategorieExercice(CategorieExercice $categorieExercice): static
     {
-        if (!$this->seances->contains($seance)) {
-            $this->seances->add($seance);
+        if (!$this->categorieExercices->contains($categorieExercice)) {
+            $this->categorieExercices->add($categorieExercice);
+            $categorieExercice->setExercice($this);
         }
 
         return $this;
     }
 
-    public function removeSeance(Seance $seance): static
+    public function removeCategorieExercice(CategorieExercice $categorieExercice): static
     {
-        $this->seances->removeElement($seance);
+        if ($this->categorieExercices->removeElement($categorieExercice)) {
+            // set the owning side to null (unless already changed)
+            if ($categorieExercice->getExercice() === $this) {
+                $categorieExercice->setExercice(null);
+            }
+        }
 
         return $this;
     }
