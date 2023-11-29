@@ -36,6 +36,9 @@ class Exercice
     #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: CategorieExercice::class)]
     private Collection $categorieExercices;
 
+    #[ORM\ManyToOne(inversedBy: 'exercice')]
+    private ?Niveau $niveau = null;
+
     public function __construct()
     {
         $this->ordreExercices = new ArrayCollection();
@@ -163,6 +166,18 @@ class Exercice
                 $categorieExercice->setExercice(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveau
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveau $niveau): static
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

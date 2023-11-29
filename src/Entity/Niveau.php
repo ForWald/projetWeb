@@ -24,7 +24,7 @@ class Niveau
     #[ORM\OneToMany(mappedBy: 'niveau', targetEntity: Seance::class)]
     private Collection $seances;
 
-    #[ORM\ManyToMany(targetEntity: Exercice::class, mappedBy: 'niveau')]
+    #[ORM\OneToMany(mappedBy: 'niveau', targetEntity: Exercice::class)]
     private Collection $exercices;
 
     public function __construct()
@@ -114,7 +114,7 @@ class Niveau
     /**
      * @return Collection<int, Exercice>
      */
-    public function getExercices(): Collection
+    public function getExercice(): Collection
     {
         return $this->exercices;
     }
@@ -123,7 +123,7 @@ class Niveau
     {
         if (!$this->exercices->contains($exercice)) {
             $this->exercices->add($exercice);
-            $exercice->addNiveau($this);
+            $exercice->setNiveau($this);
         }
 
         return $this;
@@ -132,7 +132,10 @@ class Niveau
     public function removeExercice(Exercice $exercice): static
     {
         if ($this->exercices->removeElement($exercice)) {
-            $exercice->removeNiveau($this);
+            // set the owning side to null (unless already changed)
+            if ($exercice->getNiveau() === $this) {
+                $exercice->setNiveau(null);
+            }
         }
 
         return $this;
