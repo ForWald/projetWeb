@@ -29,8 +29,9 @@ class Seance
     #[ORM\OneToMany(mappedBy: 'seance', targetEntity: OrdreSeance::class)]
     private Collection $ordreSeances;
 
-    #[ORM\OneToMany(mappedBy: 'seance', targetEntity: OrdreExercice::class)]
+    #[ORM\OneToMany(mappedBy: 'seance', targetEntity: OrdreExercice::class, cascade: ["persist"])]
     private Collection $ordreExercices;
+    private $exercice;
 
     public function __construct()
     {
@@ -138,4 +139,9 @@ class Seance
 
         return $this;
     }
+    public function getExercice(): ?Exercice
+    {
+        return $this->exercice;
+    }
+
 }

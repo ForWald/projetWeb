@@ -45,6 +45,9 @@ class Exercice
         $this->categorieExercices = new ArrayCollection();
     }
 
+    public function __toString(){
+        return $this->nom;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -181,4 +184,11 @@ class Exercice
 
         return $this;
     }
+
+  /*  public function getExercice(ExerciceRepository $exerciceRepository):collection{
+            return $exerciceRepository->findAll();
+        }
+     */
+
+
 }
