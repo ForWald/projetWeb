@@ -21,6 +21,22 @@ class SeanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Seance::class);
     }
 
+    public function trier($niveau, $categorie): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+
+        if ($niveau) {
+            $queryBuilder->andWhere('c.niveau = :niveau')
+                ->setParameter('niveau', $niveau);
+        }
+        if ($categorie) {
+            $queryBuilder->andWhere('c.categorie = :categorie')
+                ->setParameter('categorie', $categorie);
+
+        }
+
+        return $queryBuilder->getQuery()
+            ->getResult();
 //    /**
 //     * @return Seance[] Returns an array of Seance objects
 //     */
@@ -45,4 +61,5 @@ class SeanceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    }
 }

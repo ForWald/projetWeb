@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Seance;
 use App\Form\SeanceType;
+use App\Repository\CategorieRepository;
+use App\Repository\NiveauRepository;
 use App\Repository\SeanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,12 +17,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class SeanceController extends AbstractController
 {
     #[Route('/', name: 'app_seance_index', methods: ['GET'])]
-    public function index(SeanceRepository $seanceRepository): Response
+    public function index(NiveauRepository $niveauRepository, CategorieRepository $categorieRepository, SeanceRepository $seanceRepository, Request $request): Response
     {
+        $niveau= $request->query->get('niveau');
+        $categorie= $request->query->get('categorie');
+
+
+        $seances=$seanceRepository->trier($niveau,$categorie);
+
+
+
         return $this->render('seance/index.html.twig', [
-            'seances' => $seanceRepository->findAll(),
+            'seances'=>$seances,
+            'niveaux' => $niveauRepository->findAll(),
+            'categories' => $categorieRepository->findAll()
+
+
+
+
         ]);
     }
+
+
 
     #[Route('/new', name: 'app_seance_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
