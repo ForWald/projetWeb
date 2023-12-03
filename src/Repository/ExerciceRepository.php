@@ -21,6 +21,22 @@ class ExerciceRepository extends ServiceEntityRepository
         parent::__construct($registry, Exercice::class);
     }
 
+    public function trier($nom, $description): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+        if ($nom) {
+            $queryBuilder->andWhere('c.nom LIKE :nom')
+                ->setParameter('nom', '%' . $nom . '%');
+        }
+        if($description) {
+            $queryBuilder->andWhere('c.description LIKE :description')
+                ->setParameter('description', '%' . $description . '%');
+        }
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+}
+
 //    /**
 //     * @return Exercice[] Returns an array of Exercice objects
 //     */
@@ -45,4 +61,4 @@ class ExerciceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}
+
