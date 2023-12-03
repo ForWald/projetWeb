@@ -21,10 +21,7 @@ class OrdreExerciceRepository extends ServiceEntityRepository
         parent::__construct($registry, OrdreExercice::class);
     }
 
-    public function __toString(): string
-    {
-        return $this->ordre;
-    }
+
 //    /**
 //     * @return OrdreExercice[] Returns an array of OrdreExercice objects
 //     */

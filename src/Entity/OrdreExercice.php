@@ -36,6 +36,11 @@ class OrdreExercice
     #[ORM\Column]
     private ?int $nbSeries = null;
 
+    public function __toString(): string
+    {
+        return $this->exercice->getNom();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

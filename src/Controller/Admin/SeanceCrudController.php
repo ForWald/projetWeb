@@ -36,7 +36,7 @@ class SeanceCrudController extends AbstractCrudController
                 fn (QueryBuilder $queryBuilder) => $queryBuilder->getEntityManager()->getRepository(Categorie::class)->findAll()),
 
          //   IntegerField::new('nb_series'),
-            CollectionField::new('ordreExercices')->allowAdd()->useEntryCrudForm(),
+            CollectionField::new('ordreExercices')->allowAdd()->useEntryCrudForm()->setLabel('Exercices'),
 
         ];
     }
