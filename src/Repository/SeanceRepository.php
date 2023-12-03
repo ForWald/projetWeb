@@ -21,10 +21,13 @@ class SeanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Seance::class);
     }
 
-    public function trier($niveau, $categorie): array
+    public function trier($niveau, $categorie,$nom): array
     {
         $queryBuilder = $this->createQueryBuilder('c');
-
+        if($nom) {
+            $queryBuilder->andWhere('c.nom LIKE :nom')
+                ->setParameter('nom', '%' . $nom . '%');
+        }
         if ($niveau) {
             $queryBuilder->andWhere('c.niveau = :niveau')
                 ->setParameter('niveau', $niveau);

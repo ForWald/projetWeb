@@ -21,17 +21,19 @@ class SeanceController extends AbstractController
     {
         $niveau= $request->query->get('niveau');
         $categorie= $request->query->get('categorie');
+        $nom= $request->query->get('nom');
 
-
-        $seances=$seanceRepository->trier($niveau,$categorie);
+        $seances=$seanceRepository->trier($niveau,$categorie,$nom);
 
 
 
         return $this->render('seance/index.html.twig', [
+            'nom'=>$nom,
             'seances'=>$seances,
             'niveaux' => $niveauRepository->findAll(),
-            'categories' => $categorieRepository->findAll()
-
+            'categories' => $categorieRepository->findAll(),
+            'niveauSeance'=>$niveau,
+            'categorieSeance'=>$categorie
 
 
 
