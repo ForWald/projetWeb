@@ -27,7 +27,8 @@ class SeanceCrudController extends AbstractCrudController
     {
         $className = $this->getEntityFqcn();
         $entityManager = $this->container->get('doctrine')->getManagerForClass($className);
-        $someRepository = $entityManager->getRepository(Categorie::class);
+      //  $someRepository = $entityManager->getRepository(Categorie::class);
+
         return [
             TextField::new('nom'),
             AssociationField::new('niveau')->setQueryBuilder(
