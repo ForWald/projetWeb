@@ -2,6 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Exercice;
+use App\Entity\OrdreExercice;
+use App\Entity\Programme;
+use App\Entity\Seance;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -17,9 +21,9 @@ class DashboardController extends AbstractDashboardController
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
-         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
          return $this->redirect($adminUrlGenerator->setController(SeanceCrudController::class)->generateUrl());
-
+        //return $this->render('pages/admin/accueil.html.twig');
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
         // if ('jane' === $this->getUser()->getUsername()) {
@@ -41,6 +45,11 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Programme', 'fa-solid fa-calendar-days', Programme::class);
+        yield MenuItem::linkToCrud('Seance', 'fa-regular fa-calendar', Seance::class);
+        yield MenuItem::linkToCrud('Exercice', 'fa-solid fa-dumbbell', Exercice::class);
+
+
+
     }
 }
