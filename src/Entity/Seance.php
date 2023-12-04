@@ -38,6 +38,9 @@ class Seance
         $this->ordreExercices = new ArrayCollection();
     }
 
+    public function __toString(){
+        return $this->nom;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -138,4 +141,5 @@ class Seance
 
         return $this;
     }
+    
 }

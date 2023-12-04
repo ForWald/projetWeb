@@ -29,7 +29,9 @@ class Categorie
         $this->seances = new ArrayCollection();
         $this->categorieExercices = new ArrayCollection();
     }
-
+    public function __toString(){
+        return $this->nom;
+    }
     public function getId(): ?int
     {
         return $this->id;
