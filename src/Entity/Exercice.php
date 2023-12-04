@@ -36,7 +36,7 @@ class Exercice
     #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: CategorieExercice::class)]
     private Collection $categorieExercices;
 
-    #[ORM\ManyToOne(inversedBy: 'exercice')]
+    #[ORM\ManyToOne(inversedBy: 'exercices')]
     private ?Niveau $niveau = null;
 
     public function __construct()

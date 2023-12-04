@@ -23,15 +23,15 @@ class Categorie
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: CategorieExercice::class)]
     private Collection $categorieExercices;
-    public function __toString(){
-        return $this->nom;
-    }
+    
     public function __construct()
     {
         $this->seances = new ArrayCollection();
         $this->categorieExercices = new ArrayCollection();
     }
-
+    public function __toString(){
+        return $this->nom;
+    }
     public function getId(): ?int
     {
         return $this->id;

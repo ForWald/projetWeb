@@ -33,7 +33,7 @@ class Programme
     #[ORM\Column]
     private ?bool $halteres = null;
 
-    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: OrdreSeance::class)]
+    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: OrdreSeance::class,cascade: ["persist"])]
     private Collection $ordreSeances;
 
     public function __construct()
