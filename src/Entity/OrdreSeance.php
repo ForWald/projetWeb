@@ -24,6 +24,11 @@ class OrdreSeance
     #[ORM\Column]
     private ?int $ordre = null;
 
+    
+    public function __toString(): string
+    {
+        return $this->seance->getNom();
+    }
     public function getId(): ?int
     {
         return $this->id;

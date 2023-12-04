@@ -26,6 +26,10 @@ class Frequence
         $this->programmes = new ArrayCollection();
     }
 
+    public function __toString(){
+        return $this->nbJours;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
