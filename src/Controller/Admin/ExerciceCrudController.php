@@ -3,6 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Exercice;
+use App\Entity\CategorieExercice;
+use App\Entity\Categorie;
+use Doctrine\Common\Collections\Collection;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -15,14 +19,21 @@ class ExerciceCrudController extends AbstractCrudController
         return Exercice::class;
     }
 
-    /*
+    
+    
     public function configureFields(string $pageName): iterable
     {
+
         return [
-            IdField::new('id'),
-            TextField::new('title'),
+            TextField::new('nom'),
             TextEditorField::new('description'),
+            TextField::new('video'),
+            TextEditorField::new('descriptionSiHaltere'),
+            TextField::new('videoSiHaltere'),
+            CollectionField::new('categorieExercices')->allowAdd()->useEntryCrudForm()->setLabel('CategorieExercice'),
+
         ];
     }
-    */
+
+    
 }
