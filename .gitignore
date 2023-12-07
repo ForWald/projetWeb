@@ -18,3 +18,11 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+node_modules
+public/build/app.30f004b3.css
+public/build/app.d6d9fcf2.js
+public/build/entrypoints.json
+public/build/manifest.json
+public/build/runtime.ad8a04c6.js
+public/build/images/favicon.1e87b872.png
+public/build/images/favicon.png
