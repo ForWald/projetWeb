@@ -33,7 +33,7 @@ class Exercice
     #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: OrdreExercice::class)]
     private Collection $ordreExercices;
 
-    #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: CategorieExercice::class)]
+    #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: CategorieExercice::class, cascade: ["persist"])]
     private Collection $categorieExercices;
 
     #[ORM\ManyToOne(inversedBy: 'exercices')]
@@ -185,10 +185,11 @@ class Exercice
         return $this;
     }
 
-  /*  public function getExercice(ExerciceRepository $exerciceRepository):collection{
+    /*
+   public function getExercice(ExerciceRepository $exerciceRepository):collection{
             return $exerciceRepository->findAll();
         }
-     */
-
+     
+    */
 
 }
