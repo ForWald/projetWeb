@@ -6,6 +6,7 @@ use App\Entity\Exercice;
 use App\Entity\OrdreExercice;
 use App\Entity\Programme;
 use App\Entity\Seance;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -48,7 +49,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Programme', 'fa-solid fa-calendar-days', Programme::class);
         yield MenuItem::linkToCrud('Seance', 'fa-regular fa-calendar', Seance::class);
         yield MenuItem::linkToCrud('Exercice', 'fa-solid fa-dumbbell', Exercice::class);
-
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class);
 
 
     }

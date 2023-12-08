@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\EntityListeners;
@@ -39,6 +43,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
+
+    public function buildForm(FormBuilderInterface $builder, array $options){
+    $builder
+        
+
+        ->add('role', ChoiceType::class, [
+            'choices' => [
+                'User' => 'ROLE_USER',
+                'Admin' => 'ROLE_ADMIN',
+                
+            ],
+            'expanded' => true,
+            'multiple' => false,
+            'required' => true,
+        ]);}
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -72,11 +92,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+    
+        // Guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
+        
+            return array_unique($roles);
+        }
 
     public function setRoles(array $roles): static
     {
