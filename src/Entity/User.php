@@ -74,14 +74,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         
         }
         
-        public function unserialize($serialized) {
+    public function unserialize($serialized) {
         
         list (
         $this->id,
         $this->email,
         $this->password,
         ) = unserialize($serialized);
-        }
+    }
 
     public function getId(): ?int
     {
