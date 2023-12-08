@@ -21,11 +21,10 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-         return $this->redirect($adminUrlGenerator->setController(SeanceCrudController::class)->generateUrl());
+           return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
         //return $this->render('pages/admin/accueil.html.twig');
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -36,39 +35,36 @@ class DashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        // return $this->render('some/path/my-dashboard.html.twig');
+        //return $this->render('pages/home.html.twig');
     }
+    
+    
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ProjetWeb');
+            ->setTitle('WorkoutWizard');
     }
 
     public function configureMenuItems(): iterable
     {
-        $roles=$this->getUser()->getRoles();
+        $roles = $this->getUser()->getRoles();
 
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToRoute('Accueil', 'fa fa-home', 'home');
+
+        if (in_array('ROLE_ADMIN', $roles)) {
+            yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class);
+        }
+
         yield MenuItem::linkToCrud('Programme', 'fa-solid fa-calendar-days', Programme::class);
         yield MenuItem::linkToCrud('Seance', 'fa-regular fa-calendar', Seance::class);
         yield MenuItem::linkToCrud('Exercice', 'fa-solid fa-dumbbell', Exercice::class);
 
-       if(in_array('ROLE_ADMIN', $roles)){
+        if (in_array('ROLE_ADMIN', $roles)) {
             yield MenuItem::linkToCrud('Contact ', 'fa-solid fa-table', Contact::class);
             yield MenuItem::linkToCrud('Contact Sportif', 'fa-solid fa-table-list', ContactSportif::class);
-
+        } else if (in_array('ROLE_COACH', $roles)) {
+            yield MenuItem::linkToCrud('Contact Sportif', 'fa-solid fa-table', ContactSportif::class);
         }
-        else if(in_array('ROLE_COACH', $roles)){
-    yield MenuItem::linkToCrud('Contact Sportif', 'fa-solid fa-table', ContactSportif::class);
-    }
-
-
-
-
-
-
-
-
     }
 }

@@ -9,7 +9,11 @@
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">mon compte</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item"  href="{{ path('editUser', {'id': app.user.id}) }}">Mon profil</a>
-							<a class="dropdown-item" href="#">Mes programmes</a>
+							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COACH') %}
+								<a class="dropdown-item" href="{{ path('admin') }}">Espace Admin</a>	
+							{% else %}
+								<a class="dropdown-item" href="#">Mes programmes</a>
+							{% endif %}
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
 						</div>
