@@ -2,10 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Contact;
+use App\Entity\ContactSportif;
 use App\Entity\Exercice;
 use App\Entity\OrdreExercice;
 use App\Entity\Programme;
 use App\Entity\Seance;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -44,10 +47,26 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        $roles=$this->getUser()->getRoles();
+
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Programme', 'fa-solid fa-calendar-days', Programme::class);
         yield MenuItem::linkToCrud('Seance', 'fa-regular fa-calendar', Seance::class);
         yield MenuItem::linkToCrud('Exercice', 'fa-solid fa-dumbbell', Exercice::class);
+
+       if(in_array('ROLE_ADMIN', $roles)){
+            yield MenuItem::linkToCrud('Contact ', 'fa-solid fa-table', Contact::class);
+            yield MenuItem::linkToCrud('Contact Sportif', 'fa-solid fa-table-list', ContactSportif::class);
+
+        }
+        else if(in_array('ROLE_COACH', $roles)){
+    yield MenuItem::linkToCrud('Contact Sportif', 'fa-solid fa-table', ContactSportif::class);
+    }
+
+
+
+
+
 
 
 
