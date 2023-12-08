@@ -19,10 +19,13 @@ class UserType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Photo de profil',
-                'label_attr' => [
-                    'class' => 'form label mt-4'
+                'label' => false,
+                'attr' => [
+                    'class' => 'btn btn-dark p-2'
                 ],
+                'download_uri' => false,
+                'image_uri' => false,
+                'delete_label' => 'Supprimer',
                 'required' => false,
             ])
             ->add('nom', TextType::class, [
@@ -39,15 +42,6 @@ class UserType extends AbstractType
                     'class' => 'form-control',
                 ],
                 'label' => 'Prénom',
-                'label_attr' => [
-                    'class' => 'form_label mt-3',
-                ],
-            ])
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'label' => 'Adresse mail',
                 'label_attr' => [
                     'class' => 'form_label mt-3',
                 ],
