@@ -11,12 +11,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Photo de profil',
+                'label_attr' => [
+                    'class' => 'form label mt-4'
+                ],
+                'required' => false,
+            ])
             ->add('nom', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',

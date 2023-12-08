@@ -2,17 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping\EntityListeners;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[EntityListeners(['App\EntityListener\UserListener'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[Vich\Uploadable]
+class User implements UserInterface, PasswordAuthenticatedUserInterface, Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,6 +26,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
+
+    #[Vich\UploadableField(mapping: 'profile_images', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $imageName = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -39,6 +50,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\NotNull()]
+    private \DateTimeImmutable $updatedAt;
+
+    public function __construct()
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+    #[ORM\PrePersist()]
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function serialize() {
+
+        return serialize(array(
+        $this->id,
+        $this->email,
+        $this->password,
+        ));
+        
+        }
+        
+        public function unserialize($serialized) {
+        
+        list (
+        $this->id,
+        $this->email,
+        $this->password,
+        ) = unserialize($serialized);
+        }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +98,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
 
         return $this;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     /**
@@ -144,4 +213,3 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
-
