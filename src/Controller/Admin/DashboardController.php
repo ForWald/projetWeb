@@ -2,8 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Contact;
-use App\Entity\ContactSportif;
 use App\Entity\Exercice;
 use App\Entity\OrdreExercice;
 use App\Entity\Programme;
@@ -46,18 +44,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        $roles=
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Programme', 'fa-solid fa-calendar-days', Programme::class);
         yield MenuItem::linkToCrud('Seance', 'fa-regular fa-calendar', Seance::class);
         yield MenuItem::linkToCrud('Exercice', 'fa-solid fa-dumbbell', Exercice::class);
-        if(in_array('ROLE_ADMIN', $value)){
-        yield MenuItem::linkToCrud('Assistance technique', 'fa-solid fa-calendar-days', Contact::class);
-        }
 
-
-
-        yield MenuItem::linkToCrud('Assistance sportive', 'fa-solid fa-calendar-days', ContactSportif::class);
 
 
     }

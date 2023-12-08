@@ -8,7 +8,7 @@
 					<div class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">mon compte</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Mon profil</a>
+							<a class="dropdown-item"  href="{{ path('editUser', {'id': app.user.id}) }}">Mon profil</a>
 							<a class="dropdown-item" href="#">Mes programmes</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
