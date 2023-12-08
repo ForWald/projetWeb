@@ -22,9 +22,16 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-           return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
+        //*
+        $roles = $this->getUser()->getRoles();
+        if (in_array('ROLE_ADMIN', $roles)) {
+
+            $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+            return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
+        } else {
+            $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+            return $this->redirect($adminUrlGenerator->setController(ProgrammeCrudController::class)->generateUrl());
+        }
         //return $this->render('pages/admin/accueil.html.twig');
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -37,8 +44,8 @@ class DashboardController extends AbstractDashboardController
         //
         //return $this->render('pages/home.html.twig');
     }
-    
-    
+
+
 
     public function configureDashboard(): Dashboard
     {
