@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\ContactSportif;
+use App\Entity\User;
 use App\Form\ContactSportifType;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,19 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ContactSportifController extends AbstractController
 {
-    #[Route('/contact-sportif', name: 'contact-sportif')]
+    #[Route('/contact-sportif/{id}', name: 'contact-sportif')]
     public function index(
         Request                $request,
-        EntityManagerInterface $manager
+        EntityManagerInterface $manager, User $user
     ): Response
     {
         $contactsportif = new ContactSportif();
 
         if($this->getUser()) {
             $contactsportif
-                ->setNom($this->getUser()->getNom())
-                ->setPrenom($this->getUser()->getPrenom())
-                ->setEmail($this->getUser()->getEmail());
+                ->setNom($user->getNom())
+                ->setPrenom($user->getPrenom())
+                ->setEmail($user->getEmail());
         }
         $form = $this->createForm(ContactSportifType::class, $contactsportif);
         $form->handleRequest($request);

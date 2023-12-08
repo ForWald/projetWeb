@@ -7,4 +7,5 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './bootstrap.min.css';
-import './images/favicon.png';
+import './favicon.png';
+import './banniere.jpg';

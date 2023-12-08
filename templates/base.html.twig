@@ -29,8 +29,8 @@
 						<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-footer">
-						<a href="{{ path('contact') }}" class="btn btn-primary">Assistance technique</a>
-						<a href="{{ path('contact-sportif') }}" class="btn btn-primary">Contact sportif</a>
+						<a href="{{ path('contact', {'id': app.user.id}) }}" class="btn btn-primary">Assistance technique</a>
+						<a href="{{ path('contact-sportif', {'id': app.user.id}) }}" class="btn btn-primary">Contact sportif</a>
 					</div>
 				</div>
 			</div>
