@@ -200,4 +200,9 @@ class Programme implements Serializable
 
         return $this;
     }
+
+    public function getImagePath(): ?string
+    {
+        return 'images/programme/' . $this->imageName;
+    }
 }
