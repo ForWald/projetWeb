@@ -1,0 +1,43 @@
+<h1 class="mt-4 mb-4">Programmes : </h1>
+<div class="row flex-row flex-nowrap overflow-x-scroll mt-4">
+	{% for programme in programmes %}
+		<a class="card text-white bg-primary mb-3" style="max-width: 20rem;" href="{{ path('app_programme_show', {'id': programme.id}) }}">
+			<div class="card-header">{{ programme.nomProgramme }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/programme/' ~ programme.imageName) }}" alt="img" width=250>
+			</div>
+		</a>
+	{% endfor %}
+    {% for programme in programmes %}
+		<a class="card text-white bg-primary mb-3" style="max-width: 20rem;" href="{{ path('app_programme_show', {'id': programme.id}) }}">
+			<div class="card-header">{{ programme.nomProgramme }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/programme/' ~ programme.imageName) }}" alt="img" width=250>
+			</div>
+		</a>
+	{% endfor %}
+   {% for programme in programmes %}
+		<a class="card text-white bg-primary mb-3" style="max-width: 20rem;" href="{{ path('app_programme_show', {'id': programme.id}) }}">
+			<div class="card-header">{{ programme.nomProgramme }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/programme/' ~ programme.imageName) }}" alt="img" width=250>
+			</div>
+		</a>
+	{% endfor %}
+    {% for programme in programmes %}
+		<a class="card text-white bg-primary mb-3" style="max-width: 20rem;" href="{{ path('app_programme_show', {'id': programme.id}) }}">
+			<div class="card-header">{{ programme.nomProgramme }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/programme/' ~ programme.imageName) }}" alt="img" width=250>
+			</div>
+		</a>
+	{% endfor %}
+    {% for programme in programmes %}
+		<a class="card text-white bg-primary mb-3" style="max-width: 20rem;" href="{{ path('app_programme_show', {'id': programme.id}) }}">
+			<div class="card-header">{{ programme.nomProgramme }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/programme/' ~ programme.imageName) }}" alt="img" width=250>
+			</div>
+		</a>
+	{% endfor %}
+</div>

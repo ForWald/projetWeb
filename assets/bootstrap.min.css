@@ -13,6 +13,21 @@
  */
 @import url(https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;500;600;700&display=swap);
 
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(200,200,200,1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color:#fff;
+    -webkit-box-shadow: inset 0 0 6px rgba(90,90,90,0.7);
+}
+
 :root,
 [data-bs-theme=light] {
     --bs-blue: #007bff;
@@ -9163,6 +9178,11 @@ fieldset:disabled .btn {
 .text-warning {
     --bs-text-opacity: 1;
     color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important
+}
+
+.text-banner {
+    --bs-text-opacity: 1;
+    color: #7216f4 !important
 }
 
 .text-danger {
