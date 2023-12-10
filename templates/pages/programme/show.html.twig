@@ -3,29 +3,79 @@
 {% block title %}Programme{% endblock %}
 
 {% block body %}
-    <h1>Programme</h1>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ programme.nomProgramme }}</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .program-details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .program-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px; /* Ajustez la largeur selon vos besoins */
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ programme.nomProgramme }}</h1>
+
+<div class="program-details">
+    <img class="program-image" src="{{ asset(programme.imagePath) }}" alt="{{ programme.nomProgramme }}">
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ programme.id }}</td>
-            </tr>
-            <tr>
-                <th>NomProgramme</th>
+                <th>Nom du Programme</th>
                 <td>{{ programme.nomProgramme }}</td>
             </tr>
             <tr>
                 <th>Halteres</th>
                 <td>{{ programme.halteres ? 'Yes' : 'No' }}</td>
             </tr>
-            
         </tbody>
     </table>
 
-    <a href="{{ path('app_programme_index') }}">back to list</a>
+    <h2>Séances associées</h2>
+    <ul>
+        {% for seance in programme.getSeances() %}
+            <li>{{ seance.getNom() }}</li>
+        {% endfor %}
+    </ul>
+</div>
 
-    <a href="{{ path('app_programme_edit', {'id': programme.id}) }}">edit</a>
+<a href="{{ path('app_programme_index') }}">Retour à la liste</a>
+</body>
 
-    {{ include('pages/programme/_delete_form.html.twig') }}
+    {#<a href="{{ path('app_programme_edit', {'id': programme.id}) }}">edit</a>
+
+    {{ include('pages/programme/_delete_form.html.twig') }}#}
 {% endblock %}

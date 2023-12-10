@@ -1,0 +1,43 @@
+<h1 class="mt-4">Séances libres : </h1>
+<div class="row flex-row flex-nowrap overflow-x-scroll mt-4">
+	{% for seance in seances %}
+		<a class="card text-white bg-primary mb-3" style="max-width: 20rem;" href="{{ path('app_seance_show', {'id': seance.id}) }}">
+			<div class="card-header">{{ seance.nom }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/seance/' ~ seance.imageName) }}" alt="img" width=250>
+			</div>
+		</a>
+	{% endfor %}
+    {% for seance in seances %}
+		<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+			<div class="card-header">{{ seance.nom }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/seance/' ~ seance.imageName) }}" alt="img" width=250>
+			</div>
+		</div>
+	{% endfor %}
+    {% for seance in seances %}
+		<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+			<div class="card-header ">{{ seance.nom }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/seance/' ~ seance.imageName) }}" alt="img" width=250>
+			</div>
+		</div>
+	{% endfor %}
+    {% for seance in seances %}
+		<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+			<div class="card-header">{{ seance.nom }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/seance/' ~ seance.imageName) }}" alt="img" width=250>
+			</div>
+		</div>
+	{% endfor %}
+    {% for seance in seances %}
+		<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+			<div class="card-header">{{ seance.nom }}</div>
+			<div class="card-body">
+                <img src="{{ asset('images/seance/' ~ seance.imageName) }}" alt="img" width=250>
+			</div>
+		</div>
+	{% endfor %}
+</div>
