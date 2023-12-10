@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OrdreExerciceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: OrdreExerciceRepository::class)]
 class OrdreExercice
@@ -22,18 +24,23 @@ class OrdreExercice
     private ?Seance $seance = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?int $ordre = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Expression("not(this.getNbRep()==null)", message: "Si temps n'est pas vide alors nbrep doit l'être")]
     private ?float $temps = null;
 
-    #[ORM\Column(nullable:true)]
+    #[ORM\Column(nullable: true)]
+    #[Assert\Expression("not(this.getTemps()==null)", message: "Si temps n'est pas vide alors nbrep doit l'être")]
     private ?int $nbRep = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?float $tempsRepos = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?int $nbSeries = null;
 
     public function __toString(): string
@@ -129,4 +136,6 @@ class OrdreExercice
 
         return $this;
     }
+
+
 }

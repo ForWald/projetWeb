@@ -47,6 +47,7 @@ class Programme implements Serializable
     private ?string $imageName = null;
 
     #[ORM\OneToMany(mappedBy: 'programme', targetEntity: OrdreSeance::class,cascade: ["persist"])]
+    #[Assert\Valid]
     private Collection $ordreSeances;
 
     #[ORM\Column(type: 'datetime_immutable')]

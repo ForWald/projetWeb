@@ -35,6 +35,7 @@ class Seance implements Serializable
     private Collection $ordreSeances;
 
     #[ORM\OneToMany(mappedBy: 'seance', targetEntity: OrdreExercice::class, cascade: ["persist"])]
+    #[Assert\Valid]
     private Collection $ordreExercices;
     private $exercice;
 

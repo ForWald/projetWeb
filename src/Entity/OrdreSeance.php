@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OrdreSeanceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: OrdreSeanceRepository::class)]
 class OrdreSeance
@@ -22,6 +24,7 @@ class OrdreSeance
     private ?Seance $seance = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?int $ordre = null;
 
     
