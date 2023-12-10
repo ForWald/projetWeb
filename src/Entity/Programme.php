@@ -205,4 +205,14 @@ class Programme implements Serializable
     {
         return 'images/programme/' . $this->imageName;
     }
+    public function getSeances(): Collection
+    {
+        $seances = new ArrayCollection();
+
+        foreach ($this->ordreSeances as $ordreSeance) {
+            $seances[] = $ordreSeance->getSeance();
+        }
+
+        return $seances;
+    }
 }

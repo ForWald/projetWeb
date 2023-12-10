@@ -48,22 +48,31 @@
 <body>
     <h1>{{ programme.nomProgramme }}</h1>
 
-    <div class="program-details">
-        <img class="program-image" src="{{ asset(programme.imagePath) }}" alt="{{ programme.nomProgramme }}">
+<div class="program-details">
+    <img class="program-image" src="{{ asset(programme.imagePath) }}" alt="{{ programme.nomProgramme }}">
 
-        <table class="table">
-            <tbody>
-                
-                <tr>
-                    <th>Halteres</th>
-                    <td>{{ programme.halteres ? 'Yes' : 'No' }}</td>
-                </tr>
-                
-            </tbody>
-        </table>
-    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom du Programme</th>
+                <td>{{ programme.nomProgramme }}</td>
+            </tr>
+            <tr>
+                <th>Halteres</th>
+                <td>{{ programme.halteres ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
 
-    <a href="{{ path('app_programme_index') }}">Retour à la liste</a>
+    <h2>Séances associées</h2>
+    <ul>
+        {% for seance in programme.getSeances() %}
+            <li>{{ seance.getNom() }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<a href="{{ path('app_programme_index') }}">Retour à la liste</a>
 </body>
 
     {#<a href="{{ path('app_programme_edit', {'id': programme.id}) }}">edit</a>
