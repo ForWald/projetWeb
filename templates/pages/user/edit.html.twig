@@ -18,7 +18,7 @@
 		{% endfor %}
 		{% if app.user.imageName %}
 			<label class="mt-4" for="pp">Photo de profil</label><br>
-			<img src="{{ asset('images/profile/' ~ app.user.imageName) }}" alt="pp" width="70px" class="mb-1">
+			<img src="{{ asset('images/profile/' ~ app.user.imageName) }}" alt="pp" width="100px" class="mb-1">
 			{% else %}
 			<label class="mt-4">Pas de photo de profil</label>
 		{% endif %}
