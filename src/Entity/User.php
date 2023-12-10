@@ -44,20 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenom = null;
 
 
-    public function buildForm(FormBuilderInterface $builder, array $options){
-    $builder
-        
-
-        ->add('role', ChoiceType::class, [
-            'choices' => [
-                'User' => 'ROLE_USER',
-                'Admin' => 'ROLE_ADMIN',
-                
-            ],
-            'expanded' => true,
-            'multiple' => false,
-            'required' => true,
-        ]);}
+  
     
     public function getId(): ?int
     {
