@@ -27,7 +27,7 @@ class SeanceController extends AbstractController
 
 
 
-        return $this->render('seance/index.html.twig', [
+        return $this->render('pages/seance/index.html.twig', [
             'nom'=>$nom,
             'seances'=>$seances,
             'niveaux' => $niveauRepository->findAll(),
@@ -56,7 +56,7 @@ class SeanceController extends AbstractController
             return $this->redirectToRoute('app_seance_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('seance/new.html.twig', [
+        return $this->renderForm('pages/seance/new.html.twig', [
             'seance' => $seance,
             'form' => $form,
         ]);
@@ -65,7 +65,7 @@ class SeanceController extends AbstractController
     #[Route('/{id}', name: 'app_seance_show', methods: ['GET'])]
     public function show(Seance $seance): Response
     {
-        return $this->render('seance/show.html.twig', [
+        return $this->render('pages/seance/show.html.twig', [
             'seance' => $seance,
         ]);
     }
@@ -82,7 +82,7 @@ class SeanceController extends AbstractController
             return $this->redirectToRoute('app_seance_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('seance/edit.html.twig', [
+        return $this->renderForm('pages/seance/edit.html.twig', [
             'seance' => $seance,
             'form' => $form,
         ]);
