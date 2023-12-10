@@ -30,7 +30,7 @@ class ExerciceCrudController extends AbstractCrudController
             TextField::new('video'),
             TextEditorField::new('descriptionSiHaltere'),
             TextField::new('videoSiHaltere'),
-            CollectionField::new('categorieExercices')->allowAdd()->useEntryCrudForm()->setLabel('CategorieExercice'),
+            CollectionField::new('categorieExercices')->allowAdd()->useEntryCrudForm()->setLabel('Categorie'),
 
         ];
     }

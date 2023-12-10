@@ -8,13 +8,18 @@
 					<div class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">mon compte</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Mon profil</a>
-							<a class="dropdown-item" href="#">Mes programmes</a>
+							<a class="dropdown-item" href="{{ path('editUser', {'id': app.user.id}) }}">Mon profil</a>
+							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COACH') %}
+								<a class="dropdown-item" href="{{ path('admin') }}">Espace Admin</a>
+							{% else %}
+								<a class="dropdown-item" href="#">Mes programmes</a>
+								<button class="dropdown-item" data-toggle="modal" data-target="#modal">Contact</button>
+							{% endif %}
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ path('logout') }}">Deconnexion</a>
 						</div>
 					</div>
-				</div>	
+				</div>
 			{% else %}
 				<div class="navbar-nav me-auto">
 					<div class='nav-item'>
@@ -22,7 +27,7 @@
 					</div>
 				</div>
 				<div class="navbar-nav me-auto">
-					<button type="button" class="btn btn-dark" onclick="window.location.href ='{{ path('login') }}';">Connexion</button>
+					<a type="button" class="btn btn-dark" href='{{ path('login') }}'>Connexion</a>
 				</div>
 			{% endif %}
 

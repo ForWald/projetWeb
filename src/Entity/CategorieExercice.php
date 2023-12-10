@@ -21,6 +21,10 @@ class CategorieExercice
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
+    public function __toString(): string
+    {
+        return $this->exercice->getNom();
+    }
     public function getId(): ?int
     {
         return $this->id;

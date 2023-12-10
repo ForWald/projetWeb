@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Contact;
+use App\Entity\ContactSportif;
 use App\Entity\Exercice;
 use App\Entity\OrdreExercice;
 use App\Entity\Programme;
@@ -19,11 +21,17 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-
         // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-         return $this->redirect($adminUrlGenerator->setController(SeanceCrudController::class)->generateUrl());
+        //*
+        $roles = $this->getUser()->getRoles();
+        if (in_array('ROLE_ADMIN', $roles)) {
+
+            $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+            return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
+        } else {
+            $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+            return $this->redirect($adminUrlGenerator->setController(ProgrammeCrudController::class)->generateUrl());
+        }
         //return $this->render('pages/admin/accueil.html.twig');
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -34,23 +42,36 @@ class DashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        // return $this->render('some/path/my-dashboard.html.twig');
+        //return $this->render('pages/home.html.twig');
     }
+
+
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ProjetWeb');
+            ->setTitle('WorkoutWizard');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        $roles = $this->getUser()->getRoles();
+
+        yield MenuItem::linkToRoute('Accueil', 'fa fa-home', 'home');
+
+        if (in_array('ROLE_ADMIN', $roles)) {
+            yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class);
+        }
+
         yield MenuItem::linkToCrud('Programme', 'fa-solid fa-calendar-days', Programme::class);
         yield MenuItem::linkToCrud('Seance', 'fa-regular fa-calendar', Seance::class);
         yield MenuItem::linkToCrud('Exercice', 'fa-solid fa-dumbbell', Exercice::class);
-        yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class);
 
-
+        if (in_array('ROLE_ADMIN', $roles)) {
+            yield MenuItem::linkToCrud('Contact ', 'fa-solid fa-table', Contact::class);
+            yield MenuItem::linkToCrud('Contact Sportif', 'fa-solid fa-table-list', ContactSportif::class);
+        } else if (in_array('ROLE_COACH', $roles)) {
+            yield MenuItem::linkToCrud('Contact Sportif', 'fa-solid fa-table', ContactSportif::class);
+        }
     }
 }
