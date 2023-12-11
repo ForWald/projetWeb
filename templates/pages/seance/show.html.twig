@@ -3,29 +3,41 @@
 {% block title %}Seance{% endblock %}
 
 {% block body %}
-    <h1>Seance</h1>
+    <div class="container mt-4">
+    <h1>{{ seance.getNom() }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Niveau</th>
-                <th>Catégorie</th>
+    <div class="seance-details">
+        <!-- Affichage de l'image si disponible -->
+        {% if seance.getImageName() %}
+            <img class="seance-image" src="{{ asset(seance.getImagePath()) }}" alt="{{ seance.getNom() }}" style="max-width: 300px; height: auto;">
+        {% endif %}
 
-            </tr>
-            <tr>
-                <td>{{ seance.id }}</td>
-                <td>{{ seance.nom }}</td>
-                <td>{{ seance.niveau }}</td>
-                <td>{{ seance.categorie }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Tableau des détails de la séance -->
+        <table class="table">
+            <tbody>
+            <h2>Détail du Programme</h2>
+                <tr>
+                    <th>Niveau</th>
+                    <td>{{ seance.niveau() }}</td>
+                </tr>
+                <tr>
+                    <th>Catégorie</th>
+                    <td>{{ seance.categorie() }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_seance_index') }}">back to list</a>
+        <!-- Affichage des exercices associés -->
+        <h2>Exercices associés</h2>
+        <ul>
+            {% for ordreExercice in seance.getOrdreExercices() %}
+    <li><a href="{{ path('app_exercice_show', {'id': ordreExercice.getExercice().getId()}) }}">{{ ordreExercice.getExercice().getNom() }}</a></li>
+{% endfor %}
+        </ul>
+    </div>
 
-    <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">edit</a>
+    <a href="{{ path('app_seance_index') }}">Retour à la liste des séances</a>
+     
+</div>
 
-    {{ include('pages/seance/_delete_form.html.twig') }}
 {% endblock %}

@@ -206,5 +206,18 @@ class Seance implements Serializable
     {
         return $this->exercice;
     }
+    public function getImagePath(): ?string
+    {
+        return 'images/seance/' . $this->imageName;
+    }
+    public function getExercices(): Collection
+    {
+        $exercices = new ArrayCollection();
 
+        foreach ($this->ordreExercices as $ordreExercice) {
+            $exercices[] = $ordreExercice->getExercice();
+        }
+
+        return $exercices;
+    }
 }
