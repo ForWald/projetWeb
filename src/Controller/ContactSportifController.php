@@ -15,19 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ContactSportifController extends AbstractController
 {
-    #[Route('/contact-sportif/{id}', name: 'contact-sportif')]
+    #[Route('/contact-sportif/', name: 'contact-sportif')]
     public function index(
         Request                $request,
-        EntityManagerInterface $manager, User $user
+        EntityManagerInterface $manager
     ): Response
     {
         $contactsportif = new ContactSportif();
 
         if($this->getUser()) {
             $contactsportif
-                ->setNom($user->getNom())
-                ->setPrenom($user->getPrenom())
-                ->setEmail($user->getEmail());
+             ->setNom($this->getUser()->getNom())
+             ->setPrenom($this->getUser()->getPrenom())
+             ->setEmail($this->getUser()->getEmail());
         }
         $form = $this->createForm(ContactSportifType::class, $contactsportif);
         $form->handleRequest($request);

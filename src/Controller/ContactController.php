@@ -18,18 +18,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact/{id}', name: 'contact')]
+    #[Route('/contact', name: 'contact')]
     public function index(
         Request                $request,
-        EntityManagerInterface $manager, User $user
+        EntityManagerInterface $manager
     ): Response {
         $contact = new Contact();
 
         if ($this->getUser()) {
             $contact
-                ->setNom($user->getNom())
-                ->setPrenom($user->getPrenom())
-                ->setEmail($user->getEmail());
+                ->setNom($this->getUser()->getNom())
+                ->setPrenom($this->getUser()->getPrenom())
+                ->setEmail($this->getUser()->getEmail());
         }
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -47,7 +47,6 @@ class ContactController extends AbstractController
 
         return $this->render('pages/contact/contact.html.twig', [
             'form' => $form->createView(),
-
         ]);
     }
 }
